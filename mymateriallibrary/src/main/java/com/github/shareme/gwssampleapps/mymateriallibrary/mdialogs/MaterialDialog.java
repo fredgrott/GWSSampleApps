@@ -51,6 +51,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.github.shareme.gwssampleapps.mymateriallibrary.R;
+import com.github.shareme.gwssampleapps.mymateriallibrary.utils.TypefaceHelper;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -97,10 +98,10 @@ public class MaterialDialog extends DialogBase implements View.OnClickListener, 
 
     this.regularFont = builder.regularFont;
     if (this.regularFont == null)
-      Typeface.createFromAsset(getContext().getResources().getAssets(), "Roboto-Regular.ttf");
+      TypefaceHelper.get(getContext(), "Roboto-Regular.ttf");
     this.mediumFont = builder.mediumFont;
     if (this.mediumFont == null)
-      this.mediumFont = Typeface.createFromAsset(getContext().getResources().getAssets(), "Roboto-Medium.ttf");
+      this.mediumFont =(Typeface) TypefaceHelper.get(getContext(), "Roboto-Medium.ttf");
 
     this.mContext = builder.context;
     this.view = LayoutInflater.from(builder.context).inflate(R.layout.md_dialog, null);
@@ -915,29 +916,29 @@ public class MaterialDialog extends DialogBase implements View.OnClickListener, 
   }
 
 
-  public static interface ListCallback {
+  public interface ListCallback {
     void onSelection(MaterialDialog dialog, View itemView, int which, String text);
   }
 
-  public static interface ListCallbackMulti {
+  public interface ListCallbackMulti {
     void onSelection(MaterialDialog dialog, Integer[] which, String[] text);
   }
 
-  public static interface SimpleCallback {
+  public interface SimpleCallback {
     void onPositive(MaterialDialog dialog);
   }
 
-  public static interface Callback extends SimpleCallback {
+  public interface Callback extends SimpleCallback {
     void onPositive(MaterialDialog dialog);
 
     void onNegative(MaterialDialog dialog);
   }
 
-  public static interface FullCallback extends Callback {
+  public interface FullCallback extends Callback {
     void onNeutral(MaterialDialog dialog);
   }
 
-  public static interface ColorCallback {
+  public interface ColorCallback {
     void onColor(int index, int color);
   }
 }

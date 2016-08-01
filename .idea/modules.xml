@@ -3,7 +3,9 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/GWSSampleApps.iml" filepath="$PROJECT_DIR$/GWSSampleApps.iml" />
+      <module fileurl="file://$PROJECT_DIR$/anrwatchdog/anrwatchdog.iml" filepath="$PROJECT_DIR$/anrwatchdog/anrwatchdog.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/gwsmylist/gwsmylist.iml" filepath="$PROJECT_DIR$/gwsmylist/gwsmylist.iml" />
       <module fileurl="file://$PROJECT_DIR$/mymateriallibrary/mymateriallibrary.iml" filepath="$PROJECT_DIR$/mymateriallibrary/mymateriallibrary.iml" />
     </modules>
   </component>

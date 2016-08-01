@@ -1,1 +1,1 @@
-include ':app', ':mymateriallibrary'
+include ':app', ':mymateriallibrary', ':gwsmylist', ':anrwatchdog'
