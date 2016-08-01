@@ -66,6 +66,17 @@ justifications are:
    compatible ones to use. That is the theory behind creation of my
    GWSMaterialUIKit library which does integrate with that
    Support Library machinery.
+8. Separation of Applications Crash, Logging, StrictMode, and  ANRs concerns.
+   To be able to have a situation where malformed server data causes an app crash 
+   and the resulting stack trace results in server ops tracking down the error and fixing
+   it requires separating out rest of the crash, logging, strictmode, and anr concerns.
+   I use certain libs/tool integrations that I allows me to separate these concerns out 
+   so that for example I can get certain slack bot actions for a malformed server data 
+   app crash as opposed to a different slack bot action for strictmode or ANR actions.
+9. ANR watching using a much fuller approach than the Google Play Store one.
+   The benefits is that my ANR watching is enabled during app development 
+   during debug builds and thus get the ANR notifications sooner in the 
+   development cycle.
 
 
 
@@ -96,6 +107,8 @@ The following libraries were cleaned up to production standards and used:
 [Undobar developed by Liao Kai from Roman Nurik's Concept](https://github.com/soarcn/UndoBar)
 
 [AnrWatchDog developed by Salomon BRYS](https://github.com/SalomonBrys/ANR-WatchDog)
+
+[Strictmode Notifier developed by nshmura](https://github.com/nshmura/strictmode-notifier)
 
 
 
