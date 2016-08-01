@@ -17,9 +17,12 @@ package com.github.shareme.gwssampleapps.gwsmylist;
 
 import android.app.Application;
 import android.content.Context;
+import android.os.Handler;
+import android.os.StrictMode;
 import android.util.Log;
 
 import com.github.shareme.gwssampleapps.anrwatchdog.ANRWatchDog;
+import com.nshmura.strictmodenotifier.StrictModeNotifier;
 import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
 
@@ -54,6 +57,7 @@ public class GWSApp extends Application {
    *    initializations of leakcanary to catch memory leaks of activities/fragments
    *    initialization of a top uncaught exception handler
    *    initialization of an ANR Watcher to watch and log anrs
+   *    initialization and setup of strictmode
    */
   @Override
   public void onCreate() {
@@ -62,6 +66,28 @@ public class GWSApp extends Application {
     if (BuildConfig.DEBUG) {
       Timber.plant(new Timber.DebugTree());
       refWatcher = LeakCanary.install(this);
+
+      StrictModeNotifier.install(this);
+
+      //setup StrictMode.
+      //
+      // penaltyLog() should be called for strictmode-notifier
+      //
+      new Handler().post(() -> {
+        StrictMode.ThreadPolicy threadPolicy = new StrictMode.ThreadPolicy.Builder()
+                .detectAll()
+                .permitDiskReads()
+                .permitDiskWrites()
+                .penaltyLog() // Must!
+                .build();
+        StrictMode.setThreadPolicy(threadPolicy);
+
+        StrictMode.VmPolicy vmPolicy = new StrictMode.VmPolicy.Builder()
+                .detectAll()
+                .penaltyLog() // Must!
+                .build();
+        StrictMode.setVmPolicy(vmPolicy);
+      });
 
     } else {
       Timber.plant(new CrashReportingTree());
