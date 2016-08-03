@@ -23,12 +23,65 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    packagingOptions {
+        exclude 'LICENSE.txt'
+    }
+    lintOptions {
+        abortOnError false
+    }
+
+
+    aaptOptions {
+        noCompress 'txt'
+        ignoreAssetsPattern "!.svn:!.git:!.ds_store:!*.scc:.*:<dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"
+    }
+
+    signingConfigs {
+
+        release {
+            //props stored in gradle.properties at userhome .gradle subfolder
+            // for product release and you just substitute the correct vars
+            // otherwise for demo of libs use what is listed
+
+            storeFile file('buildsystem/demokey.jks')
+            storePassword 'droiddroid'
+            keyAlias 'dkey'
+            keyPassword 'droiddroid'
+        }
+
+    }
+    testOptions {
+        //puts instrumented test results in reports/androidTests
+        //unit tests are in reports/tests
+        reportDir = "$rootProject.ext.ourReportsDir/androidTests"
+        unitTests.all {
+            testLogging {
+                events 'passed', 'skipped', 'failed', 'standardOut', 'standardError'
+            }
+        }
+    }
+
+
+
 
     buildTypes {
-        release {
+        debug{
+            debuggable true
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            testCoverageEnabled true
+            applicationIdSuffix '.dev'
+            versionNameSuffix '-dev'
         }
+
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro', 'proguard-matches-android-optimize.pro'
+            signingConfig signingConfigs.release
+            applicationIdSuffix '.release'
+            versionNameSuffix '-release'
+
+        }
+
     }
 }
 
